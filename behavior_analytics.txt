@@ -1,5 +1,5 @@
 let IPList = "{IP_PLACEHOLDER}";
-let UserName = "{USER_PLACEHOLDER}";
+let UserNameList = "{USER_PLACEHOLDER}";
 BehaviorAnalytics
 | where TimeGenerated >= ago(30d)
 | where (UserPrincipalName has_any (UserNameList) and SourceIPAddress has_any (IPList))
