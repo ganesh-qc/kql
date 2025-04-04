@@ -1,0 +1,4 @@
+let IPList = "{IP_PLACEHOLDER}";
+let UserName = "{USER_PLACEHOLDER}";
+SigninLogs
+| where IPAddress in (IPList)
