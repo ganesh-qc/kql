@@ -1,4 +1,10 @@
 let IPList = "{IP_PLACEHOLDER}";
 let UserName = "{USER_PLACEHOLDER}";
-SigninLogs
-| where IPAddress in (IPList)
+SigninLogs 
+| where TimeGenerated > ago(30d)
+| where ResultType == 0
+| where UserPrincipalName has_any (UserNameList)
+| extend LocationDetails = todynamic(LocationDetails)
+| extend State = tostring(LocationDetails.state)
+| extend Country = tostring(LocationDetails.countryOrRegion)
+| summarize StateSignInCount = count() by Country, State, UserPrincipalName
