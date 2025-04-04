@@ -1,0 +1,9 @@
+let IPList = "{IP_PLACEHOLDER}";
+let UserName = "{USER_PLACEHOLDER}";
+BehaviorAnalytics
+| where TimeGenerated >= ago(30d)
+| where (UserPrincipalName has_any (UserNameList) and SourceIPAddress has_any (IPList))
+| where ActivityType has 'LogOn'
+| extend isAnomalous = iff(ActivityInsights has 'true', true, false)
+| where isAnomalous == true
+| project ActionType, ActivityType, UserPrincipalName, SourceIPAddress, isAnomalous
