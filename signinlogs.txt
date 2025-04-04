@@ -3,8 +3,8 @@ let UserName = "{USER_PLACEHOLDER}";
 SigninLogs 
 | where TimeGenerated > ago(30d)
 | where ResultType == 0
-| where UserPrincipalName has_any (UserNameList)
+| where UserPrincipalName has_any (UserNameList) or IPAddress has_any (IPList)
 | extend LocationDetails = todynamic(LocationDetails)
 | extend State = tostring(LocationDetails.state)
 | extend Country = tostring(LocationDetails.countryOrRegion)
-| summarize StateSignInCount = count() by Country, State, UserPrincipalName
+| summarize StateSignInCount = count() by Country, State, UserPrincipalName, ResultSignature
