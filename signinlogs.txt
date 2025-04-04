@@ -1,5 +1,5 @@
 let IPList = "{IP_PLACEHOLDER}";
-let UserName = "{USER_PLACEHOLDER}";
+let UserNameList = "{USER_PLACEHOLDER}";
 SigninLogs 
 | where TimeGenerated > ago(30d)
 | where ResultType == 0
